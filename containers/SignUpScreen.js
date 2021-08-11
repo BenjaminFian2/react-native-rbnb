@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     alignItems: "center",
+    flex: 1,
   },
 
   logo: {
