@@ -57,7 +57,8 @@ const SignuInScreen = ({ navigation, setToken }) => {
           ></Image>
           <Text style={styles.title}>Sign in</Text>
           <TextInput
-            textContentType="emailAddress"
+            keyboardType="email-address"
+            autoCapitalize="none"
             style={styles.input}
             onChangeText={(text) => {
               const tab = [...inputs];

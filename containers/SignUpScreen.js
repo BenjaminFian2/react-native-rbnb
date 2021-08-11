@@ -60,115 +60,110 @@ const SignuUpScreen = ({ navigation, setToken }) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="dark"></StatusBar>
-      <KeyboardAwareScrollView>
-        <View style={styles.scrollContainer}>
-          <Image
-            source={require("../assets/logo-rbnb.png")}
-            style={styles.logo}
-            resizeMode="contain"
-          ></Image>
-          <Text style={styles.title}>Sign up</Text>
+      <KeyboardAwareScrollView contentContainerStyle={styles.scrollContainer}>
+        <Image
+          source={require("../assets/logo-rbnb.png")}
+          style={styles.logo}
+          resizeMode="contain"
+        ></Image>
+        <Text style={styles.title}>Sign up</Text>
+        <TextInput
+          keyboardType="email-address"
+          autoCapitalize="none"
+          style={styles.input}
+          onChangeText={(text) => {
+            const tab = [...inputs];
+            tab[0] = text;
+            setInputs(tab);
+          }}
+          placeholder="email"
+        ></TextInput>
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => {
+            const tab = [...inputs];
+            tab[1] = text;
+            setInputs(tab);
+          }}
+          placeholder="username"
+        ></TextInput>
+        <TextInput
+          multiline={true}
+          numberOfLines={5}
+          style={styles.textArea}
+          onChangeText={(text) => {
+            const tab = [...inputs];
+            tab[2] = text;
+            setInputs(tab);
+          }}
+          placeholder="Describe yourself in a few words..."
+        ></TextInput>
+        <View style={{ position: "relative" }}>
           <TextInput
-            textContentType="emailAddress"
+            secureTextEntry={showPassword[0] ? false : true}
             style={styles.input}
             onChangeText={(text) => {
               const tab = [...inputs];
-              tab[0] = text;
+              tab[3] = text;
               setInputs(tab);
             }}
-            placeholder="email"
+            placeholder="password"
           ></TextInput>
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => {
-              const tab = [...inputs];
-              tab[1] = text;
-              setInputs(tab);
+          <Entypo
+            name={showPassword[0] ? "eye-with-line" : "eye"}
+            size={25}
+            color="grey"
+            style={{ position: "absolute", bottom: 20, right: 0 }}
+            onPress={() => {
+              const tab = [...showPassword];
+              tab[0] = !tab[0];
+              setShowPassword(tab);
             }}
-            placeholder="username"
-          ></TextInput>
-          <TextInput
-            multiline={true}
-            numberOfLines={5}
-            style={styles.textArea}
-            onChangeText={(text) => {
-              const tab = [...inputs];
-              tab[2] = text;
-              setInputs(tab);
-            }}
-            placeholder="Describe yourself in a few words..."
-          ></TextInput>
-          <View style={{ position: "relative" }}>
-            <TextInput
-              secureTextEntry={showPassword[0] ? false : true}
-              style={styles.input}
-              onChangeText={(text) => {
-                const tab = [...inputs];
-                tab[3] = text;
-                setInputs(tab);
-              }}
-              placeholder="password"
-            ></TextInput>
-            <Entypo
-              name={showPassword[0] ? "eye-with-line" : "eye"}
-              size={25}
-              color="grey"
-              style={{ position: "absolute", bottom: 20, right: 0 }}
-              onPress={() => {
-                const tab = [...showPassword];
-                tab[0] = !tab[0];
-                setShowPassword(tab);
-              }}
-            />
-          </View>
-          <View>
-            <TextInput
-              secureTextEntry={showPassword[1] ? false : true}
-              style={styles.input}
-              onChangeText={(text) => {
-                const tab = [...inputs];
-                tab[4] = text;
-                setInputs(tab);
-              }}
-              placeholder="confirm password"
-            ></TextInput>
-            <Entypo
-              name={showPassword[1] ? "eye-with-line" : "eye"}
-              size={25}
-              color="grey"
-              style={{ position: "absolute", bottom: 20, right: 0 }}
-              onPress={() => {
-                const tab = [...showPassword];
-                tab[1] = !tab[1];
-                setShowPassword(tab);
-              }}
-            />
-          </View>
-          <TextInput style={styles.error} value={errorMessage} />
-          <ActivityIndicator
-            size="small"
-            color="#0000ff"
-            animating={isLoading}
           />
-          <TouchableOpacity
-            disabled={isLoading}
-            style={styles.btnSignUp}
-            onPress={() => {
-              handleSubmit();
-            }}
-          >
-            <Text style={styles.textSignUp}>Sign up</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("SignIn");
-            }}
-          >
-            <Text style={styles.linkSignIn}>
-              Already have an account? Sign in
-            </Text>
-          </TouchableOpacity>
         </View>
+        <View>
+          <TextInput
+            secureTextEntry={showPassword[1] ? false : true}
+            style={styles.input}
+            onChangeText={(text) => {
+              const tab = [...inputs];
+              tab[4] = text;
+              setInputs(tab);
+            }}
+            placeholder="confirm password"
+          ></TextInput>
+          <Entypo
+            name={showPassword[1] ? "eye-with-line" : "eye"}
+            size={25}
+            color="grey"
+            style={{ position: "absolute", bottom: 20, right: 0 }}
+            onPress={() => {
+              const tab = [...showPassword];
+              tab[1] = !tab[1];
+              setShowPassword(tab);
+            }}
+          />
+        </View>
+        <TextInput style={styles.error} value={errorMessage} />
+        <ActivityIndicator size="small" color="#0000ff" animating={isLoading} />
+        <TouchableOpacity
+          disabled={isLoading}
+          style={styles.btnSignUp}
+          onPress={() => {
+            handleSubmit();
+          }}
+        >
+          <Text style={styles.textSignUp}>Sign up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("SignIn");
+          }}
+        >
+          <Text style={styles.linkSignIn}>
+            Already have an account? Sign in
+          </Text>
+        </TouchableOpacity>
       </KeyboardAwareScrollView>
     </SafeAreaView>
   );
@@ -179,10 +174,10 @@ export default SignuUpScreen;
 const styles = StyleSheet.create({
   container: {
     marginTop: Platform.OS === "android" ? constants.statusBarHeight : 0,
+    flex: 1,
   },
   scrollContainer: {
     alignItems: "center",
-    flex: 1,
   },
 
   logo: {
@@ -214,7 +209,7 @@ const styles = StyleSheet.create({
     width: 300,
     flexShrink: 1,
     fontSize: 16,
-    paddingVertical: 10,
+    padding: 10,
     marginVertical: 15,
     borderWidth: 2,
     borderColor: "#FFC8CD",
