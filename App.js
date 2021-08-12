@@ -3,12 +3,18 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+
+//screens
 import HomeScreen from "./containers/HomeScreen";
-import ProfileScreen from "./containers/ProfileScreen";
+import RoomScreen from "./containers/RoomScreen";
+import AroundMeScreen from "./containers/AroundMeScreen";
 import SignInScreen from "./containers/SignInScreen";
 import SignUpScreen from "./containers/SignUpScreen";
 import SettingsScreen from "./containers/SettingsScreen";
+
+//components
+import Logo from "./components/Logo";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -78,29 +84,70 @@ export default function App() {
                   }}
                 >
                   {() => (
-                    <Stack.Navigator>
+                    <Stack.Navigator
+                      screenOptions={{ headerTitleAlign: "center" }}
+                      initialRouteName="Home"
+                    >
                       <Stack.Screen
                         name="Home"
                         options={{
-                          title: "My App",
-                          headerStyle: { backgroundColor: "red" },
-                          headerTitleStyle: { color: "white" },
+                          headerTitle: () => (
+                            <Logo Style={{ width: 40, height: 40 }} />
+                          ),
+                          headerStyle: { height: 100 },
                         }}
                       >
                         {() => <HomeScreen />}
                       </Stack.Screen>
 
                       <Stack.Screen
-                        name="Profile"
+                        name="Room"
                         options={{
-                          title: "User Profile",
+                          headerTitle: (props) => (
+                            <Logo Style={{ width: 40, height: 40 }} />
+                          ),
+                          headerStyle: { height: 100 },
                         }}
                       >
-                        {() => <ProfileScreen />}
+                        {(props) => <RoomScreen {...props} />}
                       </Stack.Screen>
                     </Stack.Navigator>
                   )}
                 </Tab.Screen>
+
+                <Tab.Screen
+                  name="AroundMe"
+                  options={{
+                    tabBarLabel: "Around me",
+                    tabBarIcon: ({ color, size }) => (
+                      <MaterialCommunityIcons
+                        name="map-marker-outline"
+                        size={size}
+                        color={color}
+                      />
+                    ),
+                  }}
+                >
+                  {() => (
+                    <Stack.Navigator
+                      screenOptions={{ headerTitleAlign: "center" }}
+                      initialRouteName="AroundMe"
+                    >
+                      <Stack.Screen
+                        name="AroundMe"
+                        options={{
+                          headerTitle: () => (
+                            <Logo Style={{ width: 40, height: 40 }} />
+                          ),
+                          headerStyle: { height: 100 },
+                        }}
+                      >
+                        {(props) => <AroundMeScreen {...props} />}
+                      </Stack.Screen>
+                    </Stack.Navigator>
+                  )}
+                </Tab.Screen>
+
                 <Tab.Screen
                   name="Settings"
                   options={{
