@@ -16,45 +16,30 @@ const AroundMeScreen = ({ navigation, route }) => {
   const [position, setPosition] = useState([48.856614, 2.3522219]);
 
   useEffect(() => {
-    const getPermission = async () => {
+    const getPermissionLocation = async () => {
       try {
         const { status } = await Location.requestForegroundPermissionsAsync();
-
+        let response;
         if (status === "granted") {
-          console.log("granted");
           const location = await Location.getCurrentPositionAsync();
           setPosition([location.coords.latitude, location.coords.longitude]);
 
-          const response = await axios.get(
-            ` https://express-airbnb-api.herokuapp.com/rooms/around?latitude=${position[0]}&longitude=${position[1]}`
+          response = await axios.get(
+            ` https://express-airbnb-api.herokuapp.com/rooms/around?latitude=${location.coords.latitude}&longitude=${location.coords.longitude}`
           );
-          setData(response.data);
         } else {
-          console.log("denied");
-          const response = await axios.get(
+          response = await axios.get(
             ` https://express-airbnb-api.herokuapp.com/rooms/around`
           );
-          setData(response.data);
         }
+        setData(response.data);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
     };
-    getPermission();
+    getPermissionLocation();
   }, []);
-
-  const coords = () => {
-    const tab = [];
-    for (let i = 0; i < data.length; i++) {
-      tab.push({ localisation: data[i].location, id: data[i]._id });
-    }
-    return tab;
-  };
-
-  if (!isLoading) {
-    console.log(coords());
-  }
 
   return isLoading ? (
     <ActivityIndicator size="large" color="#0000ff" animating={isLoading} />
@@ -64,24 +49,23 @@ const AroundMeScreen = ({ navigation, route }) => {
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 48.856614,
-          longitude: 2.3522219,
+          latitude: position[0],
+          longitude: position[1],
           latitudeDelta: 0.1,
           longitudeDelta: 0.1,
         }}
         showsUserLocation={true}
       >
-        {coords().map((item, index) => {
-          console.log(item.id);
+        {data.map((item, index) => {
           return (
             <MapView.Marker
               coordinate={{
-                latitude: item.localisation[1],
-                longitude: item.localisation[0],
+                latitude: item.location[1],
+                longitude: item.location[0],
               }}
-              key={item.id}
+              key={item._id}
               onPress={() => {
-                navigation.navigate("Room", { id: item.id });
+                navigation.navigate("RoomScreen", { id: item._id });
               }}
             />
           );

@@ -18,7 +18,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import ConnectBtn from "../components/ConnectBtn";
 import RedirectBtn from "../components/RedirectBtn";
 
-const SignuInScreen = ({ navigation, setToken }) => {
+const SignInScreen = ({ navigation, setToken, setId }) => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const [errorMessage, setErrorMessage] = useState();
@@ -39,8 +39,10 @@ const SignuInScreen = ({ navigation, setToken }) => {
           }
         );
         const userToken = response.data.token;
+        const id = response.data.id;
         setIsLoading(false);
         setToken(userToken);
+        setId(id);
       } catch (error) {
         if (error.response) {
           setErrorMessage(error.response.data.error);
@@ -57,7 +59,7 @@ const SignuInScreen = ({ navigation, setToken }) => {
       <StatusBar style="dark"></StatusBar>
       <KeyboardAwareScrollView
         contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps="handled"
       >
         <Logo Style={styles.logo} />
         <Title value="Sign in" Style={styles.title} />
@@ -90,7 +92,7 @@ const SignuInScreen = ({ navigation, setToken }) => {
   );
 };
 
-export default SignuInScreen;
+export default SignInScreen;
 
 const styles = StyleSheet.create({
   container: {

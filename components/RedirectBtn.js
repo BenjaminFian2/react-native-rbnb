@@ -14,7 +14,7 @@ const RedirectBtn = ({ Style, redirect, text }) => {
           navigation.navigate(redirect);
         }}
       >
-        <Text style={styles.linkSignIn}>{text}</Text>
+        <Text style={styles.link}>{text}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -23,7 +23,7 @@ const RedirectBtn = ({ Style, redirect, text }) => {
 export default RedirectBtn;
 
 const styles = StyleSheet.create({
-  linkSignIn: {
+  link: {
     color: "#717171",
   },
 });

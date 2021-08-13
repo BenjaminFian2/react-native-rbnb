@@ -14,7 +14,7 @@ const Article = ({ item }) => {
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        navigation.navigate("Room", { id: item._id });
+        navigation.navigate("RoomScreen", { id: item._id });
       }}
     >
       <ImageArticle

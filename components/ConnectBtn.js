@@ -2,11 +2,11 @@ import React from "react";
 
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 
-const ConnectBtn = ({ disabled, submit, text }) => {
+const ConnectBtn = ({ disabled, submit, text, Style }) => {
   return (
     <View>
       <TouchableOpacity
-        style={styles.btn}
+        style={[Style, styles.btn]}
         disabled={disabled}
         onPress={() => {
           submit();

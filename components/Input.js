@@ -12,12 +12,14 @@ const Input = ({
   changeFunc,
   passShow,
   passFunc,
+  defaultValue,
 }) => {
   // console.log(secureEntryToggle);
   return (
     <View>
       <TextInput
         placeholder={placeholder}
+        defaultValue={defaultValue}
         keyboardType={keyboardType}
         autoCapitalize={autoCapitalize}
         secureTextEntry={secureEntryToggle}

@@ -19,7 +19,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import ConnectBtn from "../components/ConnectBtn";
 import RedirectBtn from "../components/RedirectBtn";
 
-const SignuUpScreen = ({ navigation, setToken }) => {
+const SignUpScreen = ({ navigation, setToken, setId }) => {
   const [email, setEmail] = useState();
   const [username, setUsername] = useState();
   const [description, setDescription] = useState();
@@ -49,8 +49,10 @@ const SignuUpScreen = ({ navigation, setToken }) => {
             }
           );
           const userToken = response.data.token;
+          const id = response.data.id;
           setIsLoading(false);
           setToken(userToken);
+          setId(id);
         } catch (error) {
           if (error.response) {
             setErrorMessage(error.response.data.error);
@@ -68,7 +70,7 @@ const SignuUpScreen = ({ navigation, setToken }) => {
       <StatusBar style="dark"></StatusBar>
       <KeyboardAwareScrollView
         contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps="handled"
       >
         <Logo Style={styles.logo} />
         <Title value="Sign up" Style={styles.title} />
@@ -121,7 +123,7 @@ const SignuUpScreen = ({ navigation, setToken }) => {
   );
 };
 
-export default SignuUpScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {

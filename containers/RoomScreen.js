@@ -34,7 +34,7 @@ const RoomScreen = ({ navigation, route }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [route.params.id]);
 
   return isLoading ? (
     <ActivityIndicator size="large" color="#0000ff" animating={isLoading} />

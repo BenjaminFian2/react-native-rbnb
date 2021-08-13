@@ -3,6 +3,14 @@
   <img alt="Version" src="https://img.shields.io/badge/version-v1 : only login and signup are implemented-blue.svg?cacheSeconds=2592000" />
 </p>
 
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-v2 : homePage, roomPage and aroundMePage are implemented-blue.svg?cacheSeconds=2592000" />
+</p>
+
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-v2 : profile page is implemented-blue.svg?cacheSeconds=2592000" />
+</p>
+
 > A clone of RBNB mobile application. Make as part of a project with bootcamp : le reacteur
 
 ## Install

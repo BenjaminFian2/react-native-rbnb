@@ -2,11 +2,12 @@ import React from "react";
 
 import { TextInput, StyleSheet, View } from "react-native";
 
-const TextArea = ({ placeholder, changeFunc }) => {
+const TextArea = ({ placeholder, defaultValue, changeFunc }) => {
   return (
     <View>
       <TextInput
         placeholder={placeholder}
+        defaultValue={defaultValue}
         multiline={true}
         numberOfLines={5}
         style={styles.textArea}
